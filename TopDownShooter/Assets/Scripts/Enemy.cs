@@ -62,6 +62,11 @@ public class Enemy: LivingEntity {
             if (Time.time > attack_NextTime) {
                 float sqrDistanceToTarget = (target.position - transform.position).sqrMagnitude;
                 if (sqrDistanceToTarget < Mathf.Pow (attack_Distance + myCollisionRadius + targetCollisionRadius, 2)) {
+                    RaycastHit hit;
+                    if (Physics.Linecast (new Vector3(transform.position.x, transform.position.y-0.95f, transform.position.z), target.transform.position,out hit)) {
+                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer ("Obstacle"))
+                            return;
+                    }
                     attack_NextTime = Time.time + attack_TimeBetween;
                     AudioManager.instance.PlaySoundEffect ("Enemy Attack", transform.position);
                     StartCoroutine (Attack ());

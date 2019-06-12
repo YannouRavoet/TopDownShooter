@@ -7,6 +7,7 @@ public class PlayerController: MonoBehaviour {
     //Variables
     Rigidbody myRigidBody;
     Vector3 velocity;
+
     //Methods
     void Start () {
         myRigidBody = GetComponent<Rigidbody> ();

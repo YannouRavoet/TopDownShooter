@@ -41,7 +41,7 @@ public class GameUI: MonoBehaviour {
     void OnNewWave (int waveNumber) {
         newWaveTitle.text = " - Wave " + numbers[waveNumber - 1] + " -";
         string enemyCountString = ((spawner.waves[waveNumber - 1].infiniteWave) ? "Infinite" : spawner.waves[waveNumber - 1].enemyCount+"");
-        newWaveEnemyCount.text = "Enemies: "+ enemyCountString;
+        newWaveEnemyCount.text = "enemyCountString enemies";
 
         StartCoroutine (AnimateNewWaveBanner ());
     }
@@ -83,7 +83,7 @@ public class GameUI: MonoBehaviour {
         }
     }
 
-    //INPUT HANDLING
+    //GAMEOVER INPUT HANDLING
     public void StartNewGame () {
         SceneManager.LoadScene ("Game");
     }
