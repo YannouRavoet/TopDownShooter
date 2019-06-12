@@ -70,7 +70,7 @@ public class Player: LivingEntity {
     }
 
     protected override void Die () {
-        AudioManager.instance.PlaySound ("Player Death", transform.position);
+        AudioManager.instance.PlaySoundEffect ("Player Death", transform.position);
         base.Die ();
     }
 }

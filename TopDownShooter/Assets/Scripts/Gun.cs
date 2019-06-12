@@ -75,7 +75,7 @@ public class Gun: MonoBehaviour {
             muzzleflash.Activate ();
             if (!ejectShellsAtReload)
                 Instantiate (shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
-            AudioManager.instance.PlaySound (shootSoundEffect, transform.position);
+            AudioManager.instance.PlaySoundEffect (shootSoundEffect, transform.position);
 
             //recoil
             transform.localPosition -= Vector3.forward * horizontalRecoil;
@@ -87,7 +87,7 @@ public class Gun: MonoBehaviour {
     public void Reload () {
         if (!isReloading) {
             StartCoroutine (AnimateReload ());
-            AudioManager.instance.PlaySound (reloadSoundEffect, transform.position);
+            AudioManager.instance.PlaySoundEffect (reloadSoundEffect, transform.position);
         }
     }
 

@@ -101,7 +101,7 @@ public class Spawner: MonoBehaviour {
 
     void NextWave () {
         if (waveIndex > 0) {
-            AudioManager.instance.PlaySound2D ("Level Complete");
+            AudioManager.instance.PlaySoundEffect2D ("Level Complete");
         }
         waveIndex++;
         if (waveIndex - 1 < waves.Length) {
@@ -115,7 +115,7 @@ public class Spawner: MonoBehaviour {
     }
 
     void resetPlayerPosition () {
-        playerTransform.position = map.GetTileFromPosition (Vector3.zero).position + Vector3.up * 3;
+        playerTransform.position = map.GetTileFromPosition (Vector3.zero).position + Vector3.up * 1;
     }
 
     [System.Serializable]
