@@ -115,7 +115,7 @@ public class Spawner: MonoBehaviour {
     }
 
     void resetPlayerPosition () {
-        playerTransform.position = map.GetTileFromPosition (Vector3.zero).position + Vector3.up * 1;
+        playerTransform.position = map.GetTileFromPosition (Vector3.zero).position + Vector3.up;
     }
 
     [System.Serializable]

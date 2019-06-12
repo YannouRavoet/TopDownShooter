@@ -27,6 +27,10 @@ public class AudioManager: MonoBehaviour {
     Transform player;
 
     void Awake () {
+        if (instance != null) {
+            Destroy (gameObject); //when you return to the menu you don't want to make a new AudioManager
+            return;
+        }
         instance = this;
         DontDestroyOnLoad (gameObject); // AudioManager will be transfered throughout the levels
 
@@ -42,7 +46,7 @@ public class AudioManager: MonoBehaviour {
         sfx2dSource = newSfx2DSource.AddComponent<AudioSource> ();
         newSfx2DSource.transform.parent = transform;
 
-
+        /*Load Player Preferences or defaults*/
         masterVolume = PlayerPrefs.GetFloat ("master vol", 1);
         musicVolume = PlayerPrefs.GetFloat ("music vol", 1);
         sfxVolume = PlayerPrefs.GetFloat ("sfx vol", 1);
@@ -51,7 +55,6 @@ public class AudioManager: MonoBehaviour {
     void Start () {
         library = GetComponent<SoundLibrary> ();
         audioListener = FindObjectOfType<AudioListener> ().transform;
-
     }
 
     void OnEnable () {
@@ -63,19 +66,13 @@ public class AudioManager: MonoBehaviour {
     }
 
     void OnSceneLoaded (Scene scene, LoadSceneMode mode) {
-        if (FindObjectOfType<Player> () != null) {
+        if (FindObjectOfType<Player> () != null) 
             player = FindObjectOfType<Player> ().transform;
-        }
     }
 
-
-
-
-
     void Update () {
-        if (player != null) {
+        if (player != null)
             audioListener.position = player.position;
-        }
     }
 
     public void SetVolume (float volume, AudioChannel channel) {
@@ -102,7 +99,7 @@ public class AudioManager: MonoBehaviour {
         activeMusicSourceIndex = 1 - activeMusicSourceIndex; //toggle the active audioSource
         musicSources[activeMusicSourceIndex].clip = clip;
         musicSources[activeMusicSourceIndex].Play ();
-        StartCoroutine (MusicFadeIn (fadeDuration));
+        StartCoroutine (MusicFadeIn (fadeDuration)); //fade between audioSources
     }
 
     //Smoothly raise the volume of the active audioSources and lowers the volume of the inactive audioSource

@@ -26,11 +26,11 @@ public class Gun: MonoBehaviour {
     public AudioClip reloadSoundEffect;
 
     Muzzleflash muzzleflash;
-    float nextShotTime;
-    int shotsRemainingInMagazine;
-    int shotsRemainingInBurst;
-    bool triggerReleasedSinceLastShot;
     bool isReloading;
+    float nextShotTime;
+    int shotsRemainingInBurst;
+    int shotsRemainingInMagazine;
+    bool triggerReleasedSinceLastShot;
 
     //recoil variables
     Vector3 horizontalRecoilSmoothDampVelocity;

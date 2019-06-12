@@ -5,30 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
+    //public
     public AudioClip mainTheme;
     public AudioClip menuTheme;
-    string sceneName;
-    void Start () {
-        OnLevelWasLoaded (0);
+
+    //private
+    string currentScene;
+
+    void OnEnable () {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable () {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void Update () {
-        if (Input.GetKeyDown (KeyCode.Space)) {
-            AudioManager.instance.PlayMusic (mainTheme, 2);
-        }
-    }
-
-    void OnLevelWasLoaded (int sceneIndex) {
-        string newSceneName = SceneManager.GetActiveScene ().name;
-        if (newSceneName != sceneName) {
-            sceneName = newSceneName;
+    void OnSceneLoaded (Scene scene, LoadSceneMode mode) {
+        if (scene.name != currentScene)
             Invoke ("PlayMusic",.2f);
-        }
+        currentScene = scene.name;
     }
 
     void PlayMusic () {
         AudioClip clipToPlay = null;
-        switch (sceneName) {
+        switch (currentScene) {
             case "Menu":
                 clipToPlay = menuTheme;
                 break;
@@ -36,6 +35,7 @@ public class MusicManager : MonoBehaviour
                 clipToPlay = mainTheme;
                 break;
             default:
+                Debug.Log ("Scene does not have a music theme");
                 break;
         }
         if (clipToPlay != null) {
