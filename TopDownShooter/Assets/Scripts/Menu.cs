@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Menu: MonoBehaviour {
     public GameObject mainMenu;
     public GameObject optionsMenu;
+    public Text highScore;
 
     [Header ("Options UI")]
     public Slider[] volumeSliders;
@@ -18,7 +19,7 @@ public class Menu: MonoBehaviour {
         volumeSliders[0].value = AudioManager.instance.masterVolume;
         volumeSliders[1].value = AudioManager.instance.sfxVolume;
         volumeSliders[2].value = AudioManager.instance.musicVolume;
-
+        highScore.text = "- " + PlayerPrefs.GetInt ("highscore", 0).ToString ("D6")+ " -";
     }
 
     public void Play () {

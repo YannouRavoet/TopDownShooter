@@ -9,11 +9,11 @@ public class DayNightCycle: MonoBehaviour {
     public AnimationCurve lightIntensityOverTime;
 
     void Start () {
+
     }
 
     void Update () {
         float percent = Mathf.PingPong (Time.time, cycleLength) / cycleLength;
-        print (percent);
         directionalLight.intensity = lightIntensityOverTime.Evaluate (percent);
     }
 

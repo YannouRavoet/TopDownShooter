@@ -5,14 +5,18 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI: MonoBehaviour {
-    public Image fadePlane;
-    public GameObject gameOverUI;
+    [Header ("In Game UI")]
+    public Text scoreUI;
+    public RectTransform healthBar;
+    [Header ("New Wave UI")]
     public RectTransform newWaveBanner;
     public Text newWaveTitle;
     public Text newWaveEnemyCount;
-    public Text scoreUI;
-    public RectTransform healthBar;
+    [Header("Game Over UI")]
+    public Image fadePlane;
+    public GameObject gameOverUI;
     public Text gameOverScoreUI;
+    public Text newHighScore;
 
     Spawner spawner;
     Player player;
@@ -41,7 +45,7 @@ public class GameUI: MonoBehaviour {
     void OnNewWave (int waveNumber) {
         newWaveTitle.text = " - Wave " + numbers[waveNumber - 1] + " -";
         string enemyCountString = ((spawner.waves[waveNumber - 1].infiniteWave) ? "Infinite" : spawner.waves[waveNumber - 1].enemyCount+"");
-        newWaveEnemyCount.text = "enemyCountString enemies";
+        newWaveEnemyCount.text = enemyCountString + "enemies";
 
         StartCoroutine (AnimateNewWaveBanner ());
     }
@@ -67,10 +71,15 @@ public class GameUI: MonoBehaviour {
 
     void OnGameOver () {
         StartCoroutine (Fade (Color.clear, new Color(0,0,0,.85f), 1));
+        gameOverUI.SetActive (true);
         scoreUI.gameObject.SetActive (false);
         gameOverScoreUI.text = scoreUI.text;
         Cursor.visible = true;
-        gameOverUI.SetActive (true);
+        int highscore = PlayerPrefs.GetInt ("highscore");
+        if (Score.score > highscore) {
+            PlayerPrefs.SetInt ("highscore", Score.score);
+            newHighScore.gameObject.SetActive (true);
+        }
     }
 
     IEnumerator Fade (Color from, Color to, float time) {
